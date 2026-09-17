@@ -1,0 +1,12 @@
+{
+  "name": "Smart Report Analytics",
+  "description": "A Streamlit dashboard for attendance and operational report analytics.",
+  "repository": "https://github.com/himanshumathankarletsunbound/analyticssoftware",
+  "keywords": ["streamlit", "analytics", "python"],
+  "stack": "heroku-24",
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

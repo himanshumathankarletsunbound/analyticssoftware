@@ -1,6 +1,6 @@
 # Smart Report Analytics
 
-A Render-ready Streamlit analytics application for attendance and operational reports. Users upload CSV/XLSX/XLS files and immediately receive management KPIs, interactive graphs, student attendance risk, staff workload, operational breakdowns, finance signals, data-quality diagnostics, filters and downloadable CSV outputs.
+A Heroku- and Render-ready Streamlit analytics application for attendance and operational reports. Users upload CSV/XLSX/XLS files and immediately receive management KPIs, interactive graphs, student attendance risk, staff workload, operational breakdowns, finance signals, data-quality diagnostics, filters and downloadable CSV outputs.
 
 ## Run locally
 
@@ -12,6 +12,44 @@ streamlit run app.py
 ```
 
 Open the local URL shown by Streamlit and upload `sample_attendance_report.csv` to test.
+
+## Deploy on Heroku
+
+This repository includes the required `Procfile`, `.python-version`, and `app.json` files. No database or Heroku add-ons are required for the current session-based application.
+
+### Heroku Dashboard with GitHub
+
+1. Push the repository to GitHub.
+2. In the Heroku Dashboard, select **New > Create new app**.
+3. On the app's **Deploy** tab, choose **GitHub** and connect this repository.
+4. Select the `main` branch and click **Deploy Branch**.
+5. Optionally enable automatic deploys after the first successful deployment.
+
+### Heroku CLI
+
+Install the Heroku CLI and log in, then run:
+
+```bash
+heroku create YOUR_UNIQUE_APP_NAME --stack heroku-24
+git push heroku main
+heroku open
+```
+
+For an existing Heroku app, attach it first:
+
+```bash
+heroku git:remote -a YOUR_EXISTING_APP_NAME
+git push heroku main
+```
+
+Useful diagnostics:
+
+```bash
+heroku ps
+heroku logs --tail
+```
+
+Heroku supplies the required `PORT` environment variable automatically. The `Procfile` binds Streamlit to that port and to `0.0.0.0` so the Heroku router can reach it.
 
 ## Deploy on Render
 
@@ -58,6 +96,9 @@ The app uses flexible column detection, so common variations such as Student Nam
 - `app.py` — Streamlit UI/dashboard
 - `analytics_engine.py` — parsing, schema detection and analytics functions
 - `requirements.txt` — pinned Python dependencies
+- `Procfile` — Heroku web-process command
+- `.python-version` — Python runtime selected for Heroku
+- `app.json` — Heroku app metadata and buildpack declaration
 - `render.yaml` — Render Blueprint configuration
 - `.streamlit/config.toml` — Streamlit server settings
 - `sample_attendance_report.csv` — test report supplied for this project
